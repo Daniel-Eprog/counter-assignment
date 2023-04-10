@@ -1,22 +1,35 @@
-// import necessary react testing library helpers here
-// import the Counter component here
+import {fireEvent, render, screen} from '@testing-library/react'
+import '@testing-library/jest-dom'
+import Counter from '../components/Counter'
 
 beforeEach(() => {
-  // Render the Counter component here
+  render(<Counter />);
 })
 
 test('renders counter message', () => {
-  // Complete the unit test below based on the objective in the line above
+  //checks the page to see if word 'Counter' is present
+  const counterMessage = screen.getByText(/Counter/i);
+  expect(counterMessage).toBeInTheDocument();
 });
 
 test('should render initial count with value of 0', () => {
-  // Complete the unit test below based on the objective in the line above
+  //looks at count component on webpage and tests to see if inital value is set to 0
+  expect(document.querySelector('[data-testid="count"]').textContent).toBe("0");
 });
 
 test('clicking + increments the count', () => {
-  // Complete the unit test below based on the objective in the line above
+  //test to see if firing increment button works
+  //fires event by accessing first button
+  fireEvent.click(document.querySelector("button:nth-of-type(1)"));
+  //checks expected value
+  expect(document.querySelector('[data-testid="count"]').textContent).toBe("1");
+
 });
 
 test('clicking - decrements the count', () => {
-  // Complete the unit test below based on the objective in the line above
+   //test to see if firing decrement button works
+  //fires event by accessing second button
+  fireEvent.click(document.querySelector("button:nth-of-type(2)"));
+  //checks expected value
+  expect(document.querySelector('[data-testid="count"]').textContent).toBe("-1");
 });
